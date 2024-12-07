@@ -1,17 +1,11 @@
 from django.shortcuts import render,redirect
-
-from .forms import UserForm,LoginForm
-
+from .forms import UserForm,LoginForm,UpdateUserForm
 from . models import Profile
-
 from django.contrib.auth.models import auth
-
 from django.contrib.auth import authenticate,login
-
-
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
+from django.contrib.auth.models import User
 
 def index(request):
     return render(request,'index.html')
@@ -65,5 +59,21 @@ def user_logout(request):
 
 
 @login_required(login_url='login')
-def profile(request):
-    return render(request,'profile.html')
+def profile_management(request):
+    Form=UpdateUserForm(instance=request.user)
+    if request.method=='POST':
+        Form=UpdateUserForm(request.POST,instance=request.user)
+        if Form.is_valid():
+            Form.save()
+            return  redirect("dashboard")
+    context={'Form':Form}
+    return render(request,'profile.html',context=context)
+
+
+
+@login_required(login_url='login')
+def delete_Account(request):
+    if request.method=='POST':
+        deleteUser=User.objects.get(username=request.user)
+        deleteUser.delete()
+    return render(request,'deleteaccount.html')

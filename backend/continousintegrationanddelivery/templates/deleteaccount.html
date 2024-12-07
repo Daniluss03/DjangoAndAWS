@@ -1,0 +1,45 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<html> 
+
+    <head>
+
+        <title> Delete </title>
+
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/morph/bootstrap.min.css"/>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+
+
+    </head>
+   
+    <br>
+    <body>
+        <br>
+        <br>
+        <div class="text-center">
+        <h2> Delete Account</h2>
+        </div>
+        <form  method="POST"  autocomplete="off" >
+
+            <div  class="container bg-white shadow-md p-5 form-layout">
+                {% csrf_token%}
+
+                <p>Are you  sure taht you wnat to delete your account </p>
+                <a href="{% url 'profile'%}"> Go back </a>
+                <input class="btn btn-primary " type="submit" value='Submit'></input>
+
+            </div>
+        </form>
+            
+
+      </body>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous">
+    </script>
+</html>
+

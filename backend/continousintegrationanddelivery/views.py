@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserForm,LoginForm,UpdateUserForm
+from .forms import UserForm,LoginForm,UpdateUserForm,updatePicture
 from . models import Profile
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate,login
@@ -58,18 +58,30 @@ def user_logout(request):
     return redirect('login')
     
 
-
-
-@login_required(login_url='login')
+@login_required(login_url='my-login')
 def profile_management(request):
-    Form=UpdateUserForm(instance=request.user)
-    if request.method=='POST':
-        Form=UpdateUserForm(request.POST,instance=request.user)
-        if Form.is_valid():
-            Form.save()
-            return  redirect("dashboard")
-    context={'Form':Form}
-    return render(request,'profile.html',context=context)
+    user_form = UpdateUserForm(instance=request.user)
+    profile = Profile.objects.get(user=request.user)
+    profile_form = updatePicture(instance=profile)
+
+    if request.method == 'POST':
+        if 'update_user' in request.POST:  # Verifica si se envió el formulario de usuario
+            user_form = UpdateUserForm(request.POST, instance=request.user)
+            if user_form.is_valid():
+                user_form.save()
+                return redirect("dashboard")  # Redirige después de guardar el usuario
+
+        elif 'update_picture' in request.POST:  # Verifica si se envió el formulario de imagen
+            profile_form = updatePicture(request.POST, request.FILES, instance=profile)
+            print(profile_form)           
+            if profile_form.is_valid():
+                profile_form.save()
+                print(profile_form)
+                return redirect("dashboard")  # Redirige después de guardar la imagen
+
+    context = {'Form': user_form, 'profile_form': profile_form}
+    print(context)
+    return render(request, 'profile.html', context=context)
 
 
 

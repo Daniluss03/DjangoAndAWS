@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 
-
+from . models import Profile
 
 #User login
 
@@ -32,5 +32,12 @@ class UpdateUserForm(forms.ModelForm):
     password=None
     class Meta:
         model=User
-        Fields=['username','email']
-        exclude=['password1','password2']
+        fields=['username','email']
+        exclude=['password1','password2',]
+
+
+class updatePicture(forms.ModelForm):
+    profile_picture=forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control-file'}))
+    class Meta:
+        model=Profile
+        fields=['profile_picture']

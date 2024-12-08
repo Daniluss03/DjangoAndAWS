@@ -26,10 +26,12 @@ def register(request):
     return render(request,'register.html',context=context)
     
 
-@never_cache  
+
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request,'dashboard.html')
+    profile_pic=Profile.objects.get(user=request.user)
+    context={'profilepic':profile_pic}
+    return render(request,'dashboard.html',context=context)
 
 
 def login(request):

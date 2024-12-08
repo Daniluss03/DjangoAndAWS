@@ -55,9 +55,10 @@
 
     <div class="container bg-white shadow-md p-5 form-layout">
         <h1>Dashboard</h1>
-
+        <br/>
+Welcome,{{user}}
+    <br/>
         {% if profilepic and profilepic.profile_picture %}
-        <p>Imagen URL: {{ profilepic.profile_picture.url }}</p>
         <img style="width:100px;" src="{{ profilepic.profile_picture.url }}" alt="Profile Picture" />
     {% else %}
         <img style="width:100px;" src="{% static 'images/Default.png' %}" alt="Default Profile Picture" />

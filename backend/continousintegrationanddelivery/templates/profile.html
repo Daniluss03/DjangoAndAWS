@@ -55,17 +55,47 @@
         <h2> Welcome</h2>
         </div>
 
-        <div class="container bg-white shadow-md p-5">
-          <form  method="POST" autocomplete="off">
-             {% csrf_token %}
-              {{Form.username | as_crispy_field}}
-              {{Form.email | as_crispy_field}} 
-              <br>
-            <input   class="btn btn-primary" type="submit" value="submit"/>
-  
-            </Form>
-          </div>
 
+        <div class="container bg-white shadow-md p-5">
+          <form method="POST" autocomplete="off">
+              {% csrf_token %}
+              
+              <!-- Mostrar campo de username -->
+              {{ Form.username | as_crispy_field }}
+              {% for error in Form.username.errors %}
+                  <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+              
+              <!-- Mostrar campo de email -->
+              {{ Form.email | as_crispy_field }}
+              {% for error in Form.email.errors %}
+                  <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+              
+              <input type="hidden" name="update_user" value="true"> 
+              <input class="btn btn-primary" type="submit" value="Update">
+          </form>
+      </div>
+      
+
+      <div class="text-center">
+        <h2>Update your profile picture</h2>
+    </div>
+    
+    <div class="container bg-white shadow-md p-5">
+      <form method="POST"  enctype="multipart/form-data"  autocomplete="off">
+        {% csrf_token %}
+        {{ profile_form.profile_picture | as_crispy_field }}
+        {% for error in profile_form.profile_pic.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+        
+        <input type="hidden" name="update_picture" value="true">
+        <input class="btn btn-primary" type="submit" value="Update">
+    </form>
+    
+    </div>
+    
       </body>
     <script src="{% static 'js/app.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>

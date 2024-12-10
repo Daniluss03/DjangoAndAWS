@@ -1,7 +1,6 @@
 
 from pathlib import Path
-import os
-
+from decouple import config 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'continousintegrationanddelivery',
     'crispy_forms',
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
@@ -112,6 +112,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#desarollo
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'static/images'
@@ -119,3 +120,28 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')  
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')  
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')  
+
+#producción
+
+STORAGES = {
+
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",        
+    },
+
+    "staticfiles":
+    {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+     
+     }
+
+
+}
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE = False

@@ -74,7 +74,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':config('NAME_DATABASE'),
         'USER':config('NAME_USER_DATABASE')  ,
-        'PASSWORD':config('PASSWORD_DATABASE') ,
+        'PASSWORD':config('PASSWORD_DATABASE') , 
         'HOST':config('HOST') ,
         'PORT':config('PORT')
     }
@@ -149,3 +149,19 @@ STORAGES = {
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_FILE_OVERWRITE = False
+
+
+# ses configuration
+EMAIL_BACKEND='django_ses.SESBackend'
+
+AWS_SES_REGION_NAME='us-east-1'
+
+AWS_SES_REGION_ENDPOINT='email.us-east-1.amazonaws.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'  
+EMAIL_PORT = config('EMAIL_PORT') 
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')  
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')  

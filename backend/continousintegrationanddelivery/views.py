@@ -6,6 +6,11 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.models import User
+from django.conf import settings
+
+
+
+from django.core.mail import send_mail
 
 def index(request):
     return render(request,'index.html')
@@ -18,8 +23,14 @@ def register(request):
         if form.is_valid():
             current_user=form.save(commit=False)
             form.save()
-
             profile=Profile.objects.create(user=current_user)
+            send_mail(
+                subject="Welcome to Danilus Web Application",
+                message="Hello! Welcome to Daniluss Web application.We're excited to have you here",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[current_user.email],
+                fail_silently=False,
+            )
             return redirect('login')
         
     context={'form':form}
@@ -91,3 +102,7 @@ def delete_Account(request):
         deleteUser=User.objects.get(username=request.user)
         deleteUser.delete()
     return render(request,'deleteaccount.html')
+
+
+
+    

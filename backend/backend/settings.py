@@ -12,9 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nqf5$0sze93ufa#mf3*ymhyo5zt)3vnh6#ea@rsrr29wbj_y(p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+#CSRF_TRUSTED_ORIGINS=['']
+
+
 
 
 # Application definition
@@ -79,7 +82,6 @@ DATABASES = {
         'PORT':config('PORT')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -165,3 +167,6 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')  
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')  
+
+
+

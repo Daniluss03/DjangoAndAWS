@@ -14,8 +14,9 @@ SECRET_KEY = 'django-insecure-nqf5$0sze93ufa#mf3*ymhyo5zt)3vnh6#ea@rsrr29wbj_y(p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-#CSRF_TRUSTED_ORIGINS=['']
+ALLOWED_HOSTS = ['www.daniluss.com','daniluss.com','*']
+CSRF_TRUSTED_ORIGINS = ['https://www.daniluss.com','https://daniluss.com']
+
 
 
 

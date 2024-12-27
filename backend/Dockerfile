@@ -1,5 +1,6 @@
 # Use the official Python image from Docker Hub
-FROM python:3.11-bullseye
+FROM python:latest
+
 
 # Set environment variable to prevent Python from buffering the output
 ENV PYTHONUNBUFFERED=1
@@ -17,4 +18,4 @@ RUN pip3 install -r requirements.txt
 COPY . . 
 
 # Set the command to run when the container starts
-CMD python manage.py runsever 0.0.0.0:8000
+CMD python manage.py runserver 0.0.0.0:8000

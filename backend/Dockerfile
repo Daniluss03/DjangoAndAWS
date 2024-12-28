@@ -1,5 +1,5 @@
 # Use the official Python image from Docker Hub
-FROM python:latest
+FROM --platform=linux/amd64 python:latest
 
 
 # Set environment variable to prevent Python from buffering the output
